@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-
 import axios from "axios";
 import Swal from "sweetalert2";
-
-import { Link,  useNavigate } from "react-router";
-
+import { Link, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
-import SocialLogin from "../../Components/Shared/SocialLogin";
-import Loading from "../../Components/Loading/Loading";
-import useAxios from "../../hooks/useAxios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
+import Loading from "../../Components/Loading/Loading";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import SocialLogin from "../../Components/Shared/SocialLogin";
 const Register = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
   const { createUser, updateUserProfile } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -37,7 +36,7 @@ const Register = () => {
           import.meta.env.VITE_img_host_key
         }`;
 
-        axio.post(image_Api_Url, formData).then((res) => {
+        axios.post(image_Api_Url, formData).then((res) => {
           const photo = res.data.data.url;
 
           //update profile
@@ -52,7 +51,7 @@ const Register = () => {
               photoURL: photo,
               email: data.email,
             };
-            axios.post("/users", user).then((res) => {
+            axiosSecure.post("/users", user).then((res) => {
               if (res.data.insertedId) {
                 navigate("/");
                 Swal.fire({
@@ -72,16 +71,17 @@ const Register = () => {
         setLoading(false);
         console.log(err);
       });
-    // console.log(data);
   };
 
   if (loading) {
-    return <Loading></Loading>
+    return <Loading></Loading>;
   }
 
   return (
     <div className="card bg-base-100 w-full max-w-md shrink-0 shadow-2xl p-10">
-      <h1 className="text-5xl font-bold text-secondary text-center">Register now!</h1>
+      <h1 className="text-5xl font-bold text-secondary text-center">
+        Register now!
+      </h1>
       <div className="card-body p-10">
         <form onSubmit={handleSubmit(handleRegistration)}>
           <fieldset className="fieldset">
@@ -123,28 +123,46 @@ const Register = () => {
             {errors.email?.type === "required" && (
               <p className="text-red-500 font-semibold">Email is required</p>
             )}
-            {/* password */}
-            <label className="label text-primary md:text-xl font-bold">
-              Password
-            </label>
-            <input
-              type="password"
-              className="input w-full"
-              placeholder="Password"
-              {...register("password", {
-                required: true,
-                minLength: 6,
-                pattern:
-                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{6,}$/,
-              })}
-            />
 
-            {errors.password && (
-              <p className="text-red-500 font-semibold">
-                Password should be one uppercase, one lowercase, one special
-                character and must be 6 digit
-              </p>
-            )}
+            <div>
+              {/* password */}
+              <label className="label text-primary md:text-xl font-bold">
+                Password
+              </label>
+
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="input w-full pr-12"
+                  placeholder="Password"
+                  {...register("password", {
+                    required: true,
+                    minLength: 6,
+                    pattern:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{6,}$/,
+                  })}
+                />
+
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+                >
+                  {showPassword ? (
+                    <FaEyeSlash size={20} />
+                  ) : (
+                    <FaEye size={20} />
+                  )}
+                </button>
+              </div>
+
+              {errors.password && (
+                <p className="text-red-500 font-semibold">
+                  Password should contain one uppercase, one lowercase, one
+                  special character and must be at least 6 characters
+                </p>
+              )}
+            </div>
             <div>
               <a className="link link-hover">Forgot password?</a>
             </div>
@@ -157,7 +175,7 @@ const Register = () => {
             <span className="text-secondary text-xl font-bold"> Login</span>
           </Link>
         </p>
-      <SocialLogin></SocialLogin>
+        <SocialLogin></SocialLogin>
       </div>
     </div>
   );

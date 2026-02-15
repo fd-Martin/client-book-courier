@@ -1,6 +1,6 @@
 import React from "react";
 import { createBrowserRouter } from "react-router";
-import AuthLayout from "../Layouts/AuthLayout";
+import AuthLayout from "../Layouts/AutheticationLayout";
 import HomeLayout from "../Layouts/HomeLayout";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import Register from "../Page/Authentication/Register";
@@ -52,7 +52,7 @@ const Router = createBrowserRouter([
     ],
   },
   {
-    path: "auth",
+    path: "authentication",
     Component: AuthLayout,
 
     children: [
