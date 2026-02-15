@@ -10,13 +10,25 @@ import AllBooks from "../Page/AllBooks/AllBooks";
 import PrivateRoute from "./PrivateRoute";
 import BookDetails from "../Components/BookDetails/BookDetails";
 import MyProfile from "../Page/Dashboard/UserDashboard/MyProfile/MyProfile";
-
+import MyOrders from "../Page/Dashboard/UserDashboard/MyOrders/MyOrders";
+import PaymentHistory from "../Page/Dashboard/UserDashboard/PaymentHistory/PaymentHistory";
+import LibrarianRoute from "./LibrarianRoute";
+import AddBook from "../Page/Dashboard/LibrarianDashboard/AddBook/AddBook";
+import MyBooks from "../Page/Dashboard/LibrarianDashboard/MyBooks/MyBooks";
+import Bookedit from "../Components/Bookedit/Bookedit";
+import Orders from "../Page/Dashboard/LibrarianDashboard/Orders/Orders";
+import AdminRoute from "./AdminRoute";
+import Users from "../Page/Dashboard/AdminDashboard/Users/Users";
+import ManageBooks from "../Page/Dashboard/AdminDashboard/ManageBooks/ManageBooks";
+import PaymentSuccess from "../Page/Dashboard/Payment/PaymentSuccess/PaymentSuccess";
+import PaymentCancelled from "../Page/Dashboard/Payment/PaymentCancel/PaymentCancel";
+import WishList from "../Page/Dashboard/UserDashboard/WishList/WishList";
 
 const Router = createBrowserRouter([
   {
     path: "/",
     Component: HomeLayout,
-    
+
     children: [
       {
         index: true,
@@ -36,14 +48,13 @@ const Router = createBrowserRouter([
       },
       {
         path: "*",
-        
       },
     ],
   },
   {
     path: "auth",
     Component: AuthLayout,
-    
+
     children: [
       {
         path: "register",
@@ -55,7 +66,6 @@ const Router = createBrowserRouter([
       },
       {
         path: "*",
-        
       },
     ],
   },
@@ -66,7 +76,7 @@ const Router = createBrowserRouter([
         <DashboardLayout></DashboardLayout>
       </PrivateRoute>
     ),
-    
+
     children: [
       {
         path: "my-profile",
@@ -78,7 +88,7 @@ const Router = createBrowserRouter([
       },
       {
         path: "invoices",
-        Component: Invoices,
+        Component: PaymentHistory,
       },
       {
         path: "add-book",
@@ -100,7 +110,7 @@ const Router = createBrowserRouter([
         path: "edit-book/:id",
         element: (
           <LibrarianRoute>
-            <BookEdited></BookEdited>
+            <Bookedit></Bookedit>
           </LibrarianRoute>
         ),
       },
@@ -116,7 +126,7 @@ const Router = createBrowserRouter([
         path: "all-users",
         element: (
           <AdminRoute>
-            <AllUsers></AllUsers>
+            <Users></Users>
           </AdminRoute>
         ),
       },
@@ -142,7 +152,6 @@ const Router = createBrowserRouter([
       },
       {
         path: "*",
-        
       },
     ],
   },
