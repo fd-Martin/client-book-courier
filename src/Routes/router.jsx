@@ -5,6 +5,7 @@ import HomeLayout from "../Layouts/HomeLayout";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import Register from "../Page/Authentication/Register";
 import Login from "../Page/Authentication/Login";
+import Home from "../Page/Home/Home";
 
 
 const Router = createBrowserRouter([
