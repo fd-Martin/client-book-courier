@@ -122,7 +122,7 @@ const Navbar = () => {
                   Login
                 </NavLink>
                 <NavLink
-                  to="/register"
+                  to="authentication/register"
                   className="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-md md:hidden"
                 >
                   Register
