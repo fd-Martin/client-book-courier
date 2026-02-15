@@ -6,6 +6,10 @@ import DashboardLayout from "../Layouts/DashboardLayout";
 import Register from "../Page/Authentication/Register";
 import Login from "../Page/Authentication/Login";
 import Home from "../Page/Home/Home";
+import AllBooks from "../Page/AllBooks/AllBooks";
+import PrivateRoute from "./PrivateRoute";
+import BookDetails from "../Components/BookDetails/BookDetails";
+import MyProfile from "../Page/Dashboard/UserDashboard/MyProfile/MyProfile";
 
 
 const Router = createBrowserRouter([

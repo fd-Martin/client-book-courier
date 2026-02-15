@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import useAuth from "../../../hooks/useAuth";
+
 import axios from "axios";
 import Swal from "sweetalert2";
-import Loading from "../../../Components/Loading/Loading";
+
 import { Link,  useNavigate } from "react-router";
-import SocialLogin from "../../../Components/SocialLogin/SocialLogin";
-import useAxios from "../../../hooks/useAxios";
+
+import useAuth from "../../hooks/useAuth";
+import SocialLogin from "../../Components/Shared/SocialLogin";
+import Loading from "../../Components/Loading/Loading";
+import useAxios from "../../hooks/useAxios";
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const axiosGeneral = useAxios();
+  const axios = useAxios();
   const { createUser, updateUserProfile } = useAuth();
 
   const {
@@ -34,7 +37,7 @@ const Register = () => {
           import.meta.env.VITE_img_host_key
         }`;
 
-        axios.post(image_Api_Url, formData).then((res) => {
+        axio.post(image_Api_Url, formData).then((res) => {
           const photo = res.data.data.url;
 
           //update profile
@@ -49,7 +52,7 @@ const Register = () => {
               photoURL: photo,
               email: data.email,
             };
-            axiosGeneral.post("/users", user).then((res) => {
+            axios.post("/users", user).then((res) => {
               if (res.data.insertedId) {
                 navigate("/");
                 Swal.fire({
@@ -73,7 +76,7 @@ const Register = () => {
   };
 
   if (loading) {
-    return <Loading></Loading>;
+    return <Loading></Loading>
   }
 
   return (

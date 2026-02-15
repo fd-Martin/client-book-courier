@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router";
-import useAuth from "../../../hooks/useAuth";
-import SocialLogin from "../../../Components/SocialLogin/SocialLogin";
-import Loading from "../../../Components/Loading/Loading";
+
+
+
 import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
+import SocialLogin from "../../Components/Shared/SocialLogin";
+import Loading from "../../Components/Loading/Loading";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
